@@ -1,0 +1,50 @@
+{
+  "collision-matrix": [
+    [
+      false,
+      false,
+      true
+    ],
+    [
+      false,
+      false
+    ],
+    [
+      true,
+      false,
+      false
+    ]
+  ],
+  "excluded-modules": [],
+  "group-list": [
+    "bottle",
+    "table",
+    "objects"
+  ],
+  "start-scene": "f51ad8f6-a735-42d6-9870-e5748723c079",
+  "design-resolution-width": 1920,
+  "design-resolution-height": 1080,
+  "fit-width": true,
+  "fit-height": true,
+  "use-project-simulator-setting": false,
+  "simulator-orientation": false,
+  "use-customize-simulator": true,
+  "simulator-resolution": {
+    "width": 960,
+    "height": 640
+  },
+  "last-module-event-record-time": 1691391215957,
+  "assets-sort-type": "name",
+  "facebook": {
+    "enable": false,
+    "appID": "",
+    "live": {
+      "enable": false
+    },
+    "audience": {
+      "enable": false
+    }
+  },
+  "preview-port": 7456,
+  "clear-simulator-cache": true
+}

@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "b71e2811-3adc-4c18-af68-951c9eef0c10",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 4000,
+  "height": 4000,
+  "platformSettings": {},
+  "subMetas": {
+    "—Pngtree—white bottel with blue lid_6196898": {
+      "ver": "1.0.6",
+      "uuid": "988a98d9-76a3-40f9-991e-d11f30f77078",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "b71e2811-3adc-4c18-af68-951c9eef0c10",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0.5,
+      "offsetY": -0.5,
+      "trimX": 1014,
+      "trimY": 115,
+      "width": 1973,
+      "height": 3771,
+      "rawWidth": 4000,
+      "rawHeight": 4000,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "f6785633-a392-40f8-b5ac-7e0b53250fbf",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 2000,
+  "height": 2000,
+  "platformSettings": {},
+  "subMetas": {
+    "—Pngtree—cartoon hand drawn a table_4048787": {
+      "ver": "1.0.6",
+      "uuid": "3e00930f-53cf-4564-b23c-cbd29bb2fbd4",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "f6785633-a392-40f8-b5ac-7e0b53250fbf",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 18,
+      "offsetY": -6.5,
+      "trimX": 96,
+      "trimY": 763,
+      "width": 1844,
+      "height": 487,
+      "rawWidth": 2000,
+      "rawHeight": 2000,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
