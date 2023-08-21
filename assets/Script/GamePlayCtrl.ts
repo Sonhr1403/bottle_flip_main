@@ -12,8 +12,11 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class GamePlayCtrl extends cc.Component {
-
   public static instance = null;
+  @property(cc.Node)
+  pause: cc.Node = null;
+  @property(cc.Node)
+  Setting: cc.Node = null;
 
   @property(cc.Node)
   bottle: cc.Node = null;
@@ -29,6 +32,9 @@ export default class GamePlayCtrl extends cc.Component {
 
   @property(cc.Node)
   livesArrs: cc.Node[] = [];
+
+  @property(cc.Sprite)
+  scoreLoad: cc.Sprite = null;
 
   // LIFE-CYCLE CALLBACKS:
 
@@ -54,8 +60,8 @@ export default class GamePlayCtrl extends cc.Component {
     cc.v2(-140, 100),
     cc.v2(140, 100),
     cc.v2(-200, 150),
-    cc.v2(200, 150)
-  ]
+    cc.v2(200, 150),
+  ];
 
   onLoad() {
     GamePlayCtrl.instance = this;
@@ -66,7 +72,9 @@ export default class GamePlayCtrl extends cc.Component {
     this.turnOn();
   }
 
-  updateLives(){
+  resetAllGame() {}
+
+  updateLives() {
     switch (this.lives) {
       case 3:
         this.livesArrs[0].active = true;
@@ -80,20 +88,20 @@ export default class GamePlayCtrl extends cc.Component {
         this.livesArrs[0].active = false;
         this.livesArrs[1].active = false;
         break;
-    
+
       default:
         break;
     }
   }
 
-  turnOn(){
+  turnOn() {
     this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
     this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
     console.log("on");
     console.log("----------------------");
   }
 
-  turnOff(){
+  turnOff() {
     this.node.off(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
     this.node.off(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
     console.log("off");
@@ -135,12 +143,12 @@ export default class GamePlayCtrl extends cc.Component {
       this.jumpDuration = 0.49;
     }
     if (dis > 520 && dis <= 600) {
-      this.jumpDuration = 0.50;
+      this.jumpDuration = 0.5;
     }
     if (dis > 600 && dis <= 700) {
       this.jumpDuration = 0.53;
     }
-    if(dis > 700){
+    if (dis > 700) {
       this.jumpDuration = 0.58;
     }
   }
@@ -194,38 +202,46 @@ export default class GamePlayCtrl extends cc.Component {
     }
   }
 
-  setAngle(){
+  setAngle() {
     this.objectHeight = Objects.instance.objectNode[this.isfliped].height;
-    this.downY = this.jumpDistance.y - this.bottleOriginPos.y - this.objectHeight;
-    if(this.downY < 300) {
+    this.downY =
+      this.jumpDistance.y - this.bottleOriginPos.y - this.objectHeight;
+    if (this.downY < 300) {
       this.angle = 140;
       this.perfectLand = 0;
     }
-    if(this.downY > 300 && this.downY <= 400) {
+    if (this.downY > 300 && this.downY <= 400) {
       this.angle = 170;
       this.perfectLand = 1;
     }
-    if(this.downY > 400 && this.downY <= 480) {
+    if (this.downY > 400 && this.downY <= 480) {
       this.angle = 180;
       this.perfectLand = 2;
     }
-    if(this.downY > 480 && this.downY <= 520) {
+    if (this.downY > 480 && this.downY <= 520) {
       this.angle = 180;
       this.perfectLand = 3;
     }
-    if(this.downY > 520 && this.downY <= 600) {
+    if (this.downY > 520 && this.downY <= 600) {
       this.angle = 180;
       this.perfectLand = 2;
     }
-    if(this.downY > 600 && this.downY <= 700) {
+    if (this.downY > 600 && this.downY <= 700) {
       this.angle = 190;
       this.perfectLand = 1;
     }
-    if(this.downY > 700) {
+    if (this.downY > 700) {
       this.angle = 220;
       this.perfectLand = 0;
     }
-    cc.log("downY: ", this.downY," + angle: ", this.angle," + perfect land: ", this.perfectLand);
+    cc.log(
+      "downY: ",
+      this.downY,
+      " + angle: ",
+      this.angle,
+      " + perfect land: ",
+      this.perfectLand
+    );
   }
 
   up() {
@@ -243,8 +259,8 @@ export default class GamePlayCtrl extends cc.Component {
 
   down() {
     if (this.isfliped === 0) {
-      if (this.downY < 300) {
-        this.jumpDistance = cc.v3(130, -260 + this.objectHeight -100, 0);
+      if (this.downY <= 300) {
+        this.jumpDistance = cc.v3(130, -260 + this.objectHeight - 100, 0);
       }
       if (this.downY > 300 && this.downY <= 400) {
         this.jumpDistance = cc.v3(110, -260 + this.objectHeight, 0);
@@ -265,8 +281,8 @@ export default class GamePlayCtrl extends cc.Component {
         this.jumpDistance = cc.v3(130, -260 + this.objectHeight - 100, 0);
       }
     } else {
-      if (this.downY < 300) {
-        this.jumpDistance = cc.v3(-150, -260 + this.objectHeight -100, 0);
+      if (this.downY <= 300) {
+        this.jumpDistance = cc.v3(-150, -260 + this.objectHeight - 100, 0);
       }
       if (this.downY > 300 && this.downY <= 400) {
         this.jumpDistance = cc.v3(-130, -260 + this.objectHeight, 0);
@@ -288,49 +304,84 @@ export default class GamePlayCtrl extends cc.Component {
       }
     }
 
-    this.tween =
-      cc.tween(this.bottle)
-        .parallel(
-          cc.tween().to(this.jumpDuration, { position: this.jumpDistance }),
-          cc.tween().by(this.jumpDuration, { angle: this.angle })
-        )
+    this.tween = cc
+      .tween(this.bottle)
+      .parallel(
+        cc.tween().to(this.jumpDuration, { position: this.jumpDistance }),
+        cc.tween().by(this.jumpDuration, { angle: this.angle })
+      );
     this.tween.start();
   }
 
-  activeBottleTemp(){
+  activeBottleTemp() {
     this.bottleTemp.active = true;
-    this.bottleTemp.setPosition(cc.v2(this.bottleOriginPos.x, -260 + Objects.instance.objectNode[this.isfliped].height));
+    this.bottleTemp.setPosition(
+      cc.v2(
+        this.bottleOriginPos.x,
+        -260 + Objects.instance.objectNode[this.isfliped].height
+      )
+    );
     this.bottleOriginPos = this.bottle.getPosition();
   }
 
-  showStar(){
+  showStar() {
     switch (this.perfectLand) {
       case 1:
         this.activeStar(1, this.starArrayPos[0]);
+        this.scheduleOnce(() => this.updateBar(1), 0.2);        
+
         break;
       case 2:
         this.activeStar(0, this.starArrayPos[1]);
-        this.scheduleOnce(()=>{
+        this.scheduleOnce(() => {
           this.activeStar(2, this.starArrayPos[2]);
-        },0.2)
+        }, 0.2);
+        this.scheduleOnce(() => this.updateBar(2), 0.4);        
+
         break;
       case 3:
         this.activeStar(0, this.starArrayPos[3]);
-        this.scheduleOnce(()=>{
+        this.scheduleOnce(() => {
           this.activeStar(1, this.starArrayPos[0]);
-        }, 0.2)
-        this.scheduleOnce(()=>{
+        }, 0.2);
+        this.scheduleOnce(() => {
           this.activeStar(2, this.starArrayPos[4]);
-        }, 0.4)
+        }, 0.4);        
+        this.scheduleOnce(() => this.updateBar(3), 0.6);        
         break;
-    
+
       default:
         break;
     }
   }
 
-  activeStar(i: number,pos: cc.Vec2){
-    console.log(pos)
+  updateBar(num) {
+    switch (num) {
+      case 1:
+        this.scoreLoad.fillRange += 0.1;
+        break;
+      case 2:
+        this.scoreLoad.fillRange += 0.3;
+        break;
+      case 3:
+        this.scoreLoad.fillRange += 0.5;
+        break;
+    }
+    if(this.scoreLoad.fillRange == 1){
+      this.scoreLoad.fillRange = 0
+      if(this.lives == 1){
+        this.lives = 2
+        this.updateLives()
+      } 
+      if(this.lives == 2){
+        this.lives = 3
+        this.updateLives()
+      } 
+    }
+  }
+
+  activeStar(i: number, pos: cc.Vec2) {
+    console.log(pos);
     this.starArrs[i].setPosition(this.bottle.getPosition());
     this.starArrs[i].scale = 0.25;
     this.starArrs[i].runAction(
@@ -341,14 +392,14 @@ export default class GamePlayCtrl extends cc.Component {
         cc.spawn(cc.moveTo(0.2, cc.v2(0, 450)), cc.scaleTo(0.2, 0.25)),
         cc.fadeOut(0.2)
       )
-    )
+    );
   }
 
-  addScore(){
+  addScore() {
     this.lblScore.string = (Number(this.lblScore.string) + 1).toString();
   }
 
-  resetGame(){
+  resetGame() {
     Objects.instance.noObject(Objects.instance.objectNode[0]);
     Objects.instance.noObject(Objects.instance.objectNode[1]);
     this.bottle.setPosition(cc.v2(-150, -260));
@@ -356,6 +407,15 @@ export default class GamePlayCtrl extends cc.Component {
     this.lives = 3;
     this.updateLives();
     this.lblScore.string = "0";
+    this.scoreLoad.fillRange = 0
     this.turnOn();
+
+  }
+
+  toggleSetting() {
+    this.Setting.active = !this.Setting.active
+  }
+  togglePause() {
+    this.pause.active = !this.pause.active
   }
 }
