@@ -7,6 +7,7 @@
 
 import Objects from "./Objects";
 import Bottle from "./bottle";
+import endGame from "./endGame";
 
 const { ccclass, property } = cc._decorator;
 
@@ -36,6 +37,8 @@ export default class GamePlayCtrl extends cc.Component {
   @property(cc.Sprite)
   scoreLoad: cc.Sprite = null;
 
+  @property(cc.Node)
+  endGameScreen: cc.Node = null;
   // LIFE-CYCLE CALLBACKS:
 
   private startClickPos: cc.Vec2 = null;
@@ -72,7 +75,6 @@ export default class GamePlayCtrl extends cc.Component {
     this.turnOn();
   }
 
-  resetAllGame() {}
 
   updateLives() {
     switch (this.lives) {
@@ -409,7 +411,8 @@ export default class GamePlayCtrl extends cc.Component {
     this.lblScore.string = "0";
     this.scoreLoad.fillRange = 0
     this.turnOn();
-
+    this.bottleTemp.active = true;
+    this.bottleTemp.setPosition(130, -260);
   }
 
   toggleSetting() {
