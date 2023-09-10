@@ -61,3 +61,7 @@ export default class Objects extends cc.Component {
         objNode.getComponent(cc.BoxCollider).size = cc.size(200,10);
     }
 }
+// book y: -405
+// box y: -405
+// block y: -???
+// no y: -318

@@ -1,7 +1,7 @@
 {
   "engine": "cocos2d-html5",
   "packages": "packages",
-  "version": "2.4.6",
+  "version": "2.4.11",
   "name": "bottle_flip",
   "id": "d3c155cb-9a73-4419-a912-98684531c357",
   "isNew": false

@@ -69,7 +69,7 @@ export default class GamePlayCtrl extends cc.Component {
   onLoad() {
     GamePlayCtrl.instance = this;
     this.bottleTemp.active = true;
-    this.bottleTemp.setPosition(130, -260);
+    this.bottleTemp.setPosition(225, -144);
     this.bottleOriginPos = this.bottle.getPosition();
     this.updateLives();
     this.turnOn();
@@ -158,25 +158,25 @@ export default class GamePlayCtrl extends cc.Component {
   setJumpDistance(dis: number) {
     if (this.isfliped === 0) {
       if (dis <= 300) {
-        this.jumpDistance = cc.v3(-150 + 140, this.bottle.y + 300, 0);
+        this.jumpDistance = cc.v3(-202 + 140, this.bottle.y + 300, 0);
       }
       if (dis > 300 && dis <= 400) {
-        this.jumpDistance = cc.v3(-150 + 150, this.bottle.y + 450, 0);
+        this.jumpDistance = cc.v3(-202 + 150, this.bottle.y + 450, 0);
       }
       if (dis > 400 && dis <= 480) {
-        this.jumpDistance = cc.v3(-150 + 158, this.bottle.y + 550, 0);
+        this.jumpDistance = cc.v3(-202 + 158, this.bottle.y + 550, 0);
       }
       if (dis > 480 && dis <= 520) {
-        this.jumpDistance = cc.v3(-150 + 162, this.bottle.y + 600, 0);
+        this.jumpDistance = cc.v3(-202 + 162, this.bottle.y + 600, 0);
       }
       if (dis > 520 && dis <= 600) {
-        this.jumpDistance = cc.v3(-150 + 170, this.bottle.y + 650, 0);
+        this.jumpDistance = cc.v3(-202 + 170, this.bottle.y + 650, 0);
       }
       if (dis > 600 && dis <= 700) {
-        this.jumpDistance = cc.v3(-150 + 180, this.bottle.y + 750, 0);
+        this.jumpDistance = cc.v3(-202 + 180, this.bottle.y + 750, 0);
       }
       if (dis > 700) {
-        this.jumpDistance = cc.v3(-150 + 190, this.bottle.y + 900, 0);
+        this.jumpDistance = cc.v3(-202 + 190, this.bottle.y + 900, 0);
       }
     } else {
       this.bottleOriginPos = this.bottle.getPosition();
@@ -262,47 +262,47 @@ export default class GamePlayCtrl extends cc.Component {
   down() {
     if (this.isfliped === 0) {
       if (this.downY <= 300) {
-        this.jumpDistance = cc.v3(130, -260 + this.objectHeight - 100, 0);
+        this.jumpDistance = cc.v3(130, -144 + this.objectHeight - 100, 0);
       }
       if (this.downY > 300 && this.downY <= 400) {
-        this.jumpDistance = cc.v3(110, -260 + this.objectHeight, 0);
+        this.jumpDistance = cc.v3(110, -144 + this.objectHeight, 0);
       }
       if (this.downY > 400 && this.downY <= 4380) {
-        this.jumpDistance = cc.v3(110, -260 + this.objectHeight, 0);
+        this.jumpDistance = cc.v3(110, -144 + this.objectHeight, 0);
       }
       if (this.downY > 480 && this.downY <= 520) {
-        this.jumpDistance = cc.v3(130, -260 + this.objectHeight, 0);
+        this.jumpDistance = cc.v3(130, -144 + this.objectHeight, 0);
       }
       if (this.downY > 520 && this.downY <= 600) {
-        this.jumpDistance = cc.v3(110, -260 + this.objectHeight, 0);
+        this.jumpDistance = cc.v3(110, -144 + this.objectHeight, 0);
       }
       if (this.downY > 600 && this.downY <= 700) {
-        this.jumpDistance = cc.v3(110, -260 + this.objectHeight, 0);
+        this.jumpDistance = cc.v3(110, -144 + this.objectHeight, 0);
       }
       if (this.downY > 700) {
-        this.jumpDistance = cc.v3(130, -260 + this.objectHeight - 100, 0);
+        this.jumpDistance = cc.v3(130, -144 + this.objectHeight - 100, 0);
       }
     } else {
       if (this.downY <= 300) {
-        this.jumpDistance = cc.v3(-150, -260 + this.objectHeight - 100, 0);
+        this.jumpDistance = cc.v3(-202, -144 + this.objectHeight - 100, 0);
       }
       if (this.downY > 300 && this.downY <= 400) {
-        this.jumpDistance = cc.v3(-130, -260 + this.objectHeight, 0);
+        this.jumpDistance = cc.v3(-202, -144 + this.objectHeight, 0);
       }
       if (this.downY > 400 && this.downY <= 480) {
-        this.jumpDistance = cc.v3(-130, -260 + this.objectHeight, 0);
+        this.jumpDistance = cc.v3(-202, -144 + this.objectHeight, 0);
       }
       if (this.downY > 480 && this.downY <= 520) {
-        this.jumpDistance = cc.v3(-150, -260 + this.objectHeight, 0);
+        this.jumpDistance = cc.v3(-202, -144 + this.objectHeight, 0);
       }
       if (this.downY > 520 && this.downY <= 600) {
-        this.jumpDistance = cc.v3(-130, -260 + this.objectHeight, 0);
+        this.jumpDistance = cc.v3(-202, -144 + this.objectHeight, 0);
       }
       if (this.downY > 600 && this.downY <= 700) {
-        this.jumpDistance = cc.v3(-130, -260 + this.objectHeight, 0);
+        this.jumpDistance = cc.v3(-202, -144 + this.objectHeight, 0);
       }
       if (this.downY > 700) {
-        this.jumpDistance = cc.v3(-150, -260 + this.objectHeight - 100, 0);
+        this.jumpDistance = cc.v3(-202, -144 + this.objectHeight - 100, 0);
       }
     }
 
@@ -320,7 +320,7 @@ export default class GamePlayCtrl extends cc.Component {
     this.bottleTemp.setPosition(
       cc.v2(
         this.bottleOriginPos.x,
-        -260 + Objects.instance.objectNode[this.isfliped].height
+        -144 + Objects.instance.objectNode[this.isfliped].height
       )
     );
     this.bottleOriginPos = this.bottle.getPosition();
@@ -404,7 +404,7 @@ export default class GamePlayCtrl extends cc.Component {
   resetGame() {
     Objects.instance.noObject(Objects.instance.objectNode[0]);
     Objects.instance.noObject(Objects.instance.objectNode[1]);
-    this.bottle.setPosition(cc.v2(-150, -260));
+    this.bottle.setPosition(cc.v2(-202, -144));
     this.bottle.angle = 0;
     this.lives = 3;
     this.updateLives();
@@ -412,7 +412,7 @@ export default class GamePlayCtrl extends cc.Component {
     this.scoreLoad.fillRange = 0
     this.turnOn();
     this.bottleTemp.active = true;
-    this.bottleTemp.setPosition(130, -260);
+    this.bottleTemp.setPosition(225, -144);
   }
 
   toggleSetting() {
