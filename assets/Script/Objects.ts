@@ -21,7 +21,7 @@ export default class Objects extends cc.Component {
     @property(cc.Node)
     objectNode: cc.Node[] = [];
 
-    private iArray: number[] = [0, 0];
+    public iArray: number[] = [0, 0];
 
     // LIFE-CYCLE CALLBACKS:
 

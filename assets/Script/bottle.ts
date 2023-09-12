@@ -31,7 +31,6 @@ export default class Bottle extends cc.Component {
             if(this.collisionCheck === 0){
                 console.log('Collision enter');
                 let perfectLand = GamePlayCtrl.instance.perfectLand;
-                cc.log("perfect land: ", perfectLand);
                 let pos = cc.v2();
                 let pos2 = cc.v2();
                 let angle = 360 - GamePlayCtrl.instance.bottle.angle;
