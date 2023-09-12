@@ -20,4 +20,10 @@ export default class NewClass extends cc.Component {
     onClickPlayGame(){
         cc.director.loadScene("GamePlay");
     }
+
+    onClickShop(){}
+
+    onClickRank(){}
+
+    onClickGuide(){}
 }

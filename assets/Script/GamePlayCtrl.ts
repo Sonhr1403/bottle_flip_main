@@ -260,50 +260,33 @@ export default class GamePlayCtrl extends cc.Component {
   }
 
   down() {
+    let x = 0;
     if (this.isfliped === 0) {
-      if (this.downY <= 300) {
-        this.jumpDistance = cc.v3(130, -144 + this.objectHeight - 100, 0);
-      }
-      if (this.downY > 300 && this.downY <= 400) {
-        this.jumpDistance = cc.v3(110, -144 + this.objectHeight, 0);
-      }
-      if (this.downY > 400 && this.downY <= 4380) {
-        this.jumpDistance = cc.v3(110, -144 + this.objectHeight, 0);
-      }
-      if (this.downY > 480 && this.downY <= 520) {
-        this.jumpDistance = cc.v3(130, -144 + this.objectHeight, 0);
-      }
-      if (this.downY > 520 && this.downY <= 600) {
-        this.jumpDistance = cc.v3(110, -144 + this.objectHeight, 0);
-      }
-      if (this.downY > 600 && this.downY <= 700) {
-        this.jumpDistance = cc.v3(110, -144 + this.objectHeight, 0);
-      }
-      if (this.downY > 700) {
-        this.jumpDistance = cc.v3(130, -144 + this.objectHeight - 100, 0);
-      }
+      x = 225;
     } else {
-      if (this.downY <= 300) {
-        this.jumpDistance = cc.v3(-202, -144 + this.objectHeight - 100, 0);
-      }
-      if (this.downY > 300 && this.downY <= 400) {
-        this.jumpDistance = cc.v3(-202, -144 + this.objectHeight, 0);
-      }
-      if (this.downY > 400 && this.downY <= 480) {
-        this.jumpDistance = cc.v3(-202, -144 + this.objectHeight, 0);
-      }
-      if (this.downY > 480 && this.downY <= 520) {
-        this.jumpDistance = cc.v3(-202, -144 + this.objectHeight, 0);
-      }
-      if (this.downY > 520 && this.downY <= 600) {
-        this.jumpDistance = cc.v3(-202, -144 + this.objectHeight, 0);
-      }
-      if (this.downY > 600 && this.downY <= 700) {
-        this.jumpDistance = cc.v3(-202, -144 + this.objectHeight, 0);
-      }
-      if (this.downY > 700) {
-        this.jumpDistance = cc.v3(-202, -144 + this.objectHeight - 100, 0);
-      }
+      x = -202;
+    }
+
+    if (this.downY <= 300) {
+      this.jumpDistance = cc.v3(x, Objects.instance.objectNode[this.isfliped].y + this.objectHeight - 100, 0);
+    }
+    if (this.downY > 300 && this.downY <= 400) {
+      this.jumpDistance = cc.v3(x, Objects.instance.objectNode[this.isfliped].y + this.objectHeight, 0);
+    }
+    if (this.downY > 400 && this.downY <= 4380) {
+      this.jumpDistance = cc.v3(x, Objects.instance.objectNode[this.isfliped].y + this.objectHeight, 0);
+    }
+    if (this.downY > 480 && this.downY <= 520) {
+      this.jumpDistance = cc.v3(x, Objects.instance.objectNode[this.isfliped].y + this.objectHeight, 0);
+    }
+    if (this.downY > 520 && this.downY <= 600) {
+      this.jumpDistance = cc.v3(x, Objects.instance.objectNode[this.isfliped].y + this.objectHeight, 0);
+    }
+    if (this.downY > 600 && this.downY <= 700) {
+      this.jumpDistance = cc.v3(x, Objects.instance.objectNode[this.isfliped].y + this.objectHeight, 0);
+    }
+    if (this.downY > 700) {
+      this.jumpDistance = cc.v3(x, Objects.instance.objectNode[this.isfliped].y + this.objectHeight - 100, 0);
     }
 
     this.tween = cc
@@ -320,7 +303,7 @@ export default class GamePlayCtrl extends cc.Component {
     this.bottleTemp.setPosition(
       cc.v2(
         this.bottleOriginPos.x,
-        -144 + Objects.instance.objectNode[this.isfliped].height
+        Objects.instance.objectNode[this.isfliped].y + Objects.instance.objectNode[this.isfliped].height
       )
     );
     this.bottleOriginPos = this.bottle.getPosition();

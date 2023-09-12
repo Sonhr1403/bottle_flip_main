@@ -34,7 +34,7 @@ export default class Bottle extends cc.Component {
                 cc.log("perfect land: ", perfectLand);
                 let pos = cc.v2();
                 let pos2 = cc.v2();
-                let angle = 180 - GamePlayCtrl.instance.angle;
+                let angle = 360 - GamePlayCtrl.instance.bottle.angle;
                 switch (perfectLand) {
                     case 0:
                         GamePlayCtrl.instance.tween.stop();
@@ -99,7 +99,7 @@ export default class Bottle extends cc.Component {
                                 Objects.instance.createObject();
                                 GamePlayCtrl.instance.activeBottleTemp();
                                 GamePlayCtrl.instance.turnOn();
-                            }, 2.1);
+                            }, 2.3);
                         });
                         this.scheduleOnce(()=>{
                             this.tween.start();

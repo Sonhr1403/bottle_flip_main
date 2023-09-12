@@ -1,0 +1,62 @@
+
+skeleton.png
+size: 849,1085
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+2 copy
+  rotate: true
+  xy: 664, 54
+  size: 233, 163
+  orig: 239, 166
+  offset: 3, 2
+  index: -1
+3 copy
+  rotate: false
+  xy: 256, 40
+  size: 217, 191
+  orig: 222, 193
+  offset: 2, 2
+  index: -1
+4 copy 4
+  rotate: true
+  xy: 380, 239
+  size: 133, 282
+  orig: 138, 284
+  offset: 2, 2
+  index: -1
+BG
+  rotate: true
+  xy: 2, 233
+  size: 850, 376
+  orig: 853, 379
+  offset: 2, 2
+  index: -1
+BOOK
+  rotate: false
+  xy: 2, 2
+  size: 252, 229
+  orig: 256, 231
+  offset: 2, 2
+  index: -1
+BOTTLE
+  rotate: true
+  xy: 380, 374
+  size: 709, 172
+  orig: 709, 172
+  offset: 0, 0
+  index: -1
+Bottle TREN
+  rotate: true
+  xy: 554, 389
+  size: 694, 142
+  orig: 695, 142
+  offset: 1, 0
+  index: -1
+FLIP
+  rotate: true
+  xy: 698, 289
+  size: 794, 149
+  orig: 794, 149
+  offset: 0, 0
+  index: -1
