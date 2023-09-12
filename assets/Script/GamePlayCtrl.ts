@@ -7,7 +7,6 @@
 
 import Objects from "./Objects";
 import Bottle from "./bottle";
-import endGame from "./endGame";
 
 const { ccclass, property } = cc._decorator;
 
@@ -72,6 +71,7 @@ export default class GamePlayCtrl extends cc.Component {
     this.bottleTemp.setPosition(225, -144);
     this.bottleOriginPos = this.bottle.getPosition();
     this.updateLives();
+    this.lblScore.string = "0";
     this.turnOn();
   }
 
@@ -156,50 +156,51 @@ export default class GamePlayCtrl extends cc.Component {
   }
 
   setJumpDistance(dis: number) {
+    console.log("is filiped", this.isfliped)
     if (this.isfliped === 0) {
       if (dis <= 300) {
-        this.jumpDistance = cc.v3(-202 + 140, this.bottle.y + 300, 0);
+        this.jumpDistance = cc.v3(-202 + 213, this.bottle.y + 300, 0);
       }
       if (dis > 300 && dis <= 400) {
-        this.jumpDistance = cc.v3(-202 + 150, this.bottle.y + 450, 0);
+        this.jumpDistance = cc.v3(-202 + 223, this.bottle.y + 450, 0);
       }
       if (dis > 400 && dis <= 480) {
-        this.jumpDistance = cc.v3(-202 + 158, this.bottle.y + 550, 0);
+        this.jumpDistance = cc.v3(-202 + 233, this.bottle.y + 550, 0);
       }
       if (dis > 480 && dis <= 520) {
-        this.jumpDistance = cc.v3(-202 + 162, this.bottle.y + 600, 0);
+        this.jumpDistance = cc.v3(-202 + 243, this.bottle.y + 600, 0);
       }
       if (dis > 520 && dis <= 600) {
-        this.jumpDistance = cc.v3(-202 + 170, this.bottle.y + 650, 0);
+        this.jumpDistance = cc.v3(-202 + 253, this.bottle.y + 650, 0);
       }
       if (dis > 600 && dis <= 700) {
-        this.jumpDistance = cc.v3(-202 + 180, this.bottle.y + 750, 0);
+        this.jumpDistance = cc.v3(-202 + 263, this.bottle.y + 750, 0);
       }
       if (dis > 700) {
-        this.jumpDistance = cc.v3(-202 + 190, this.bottle.y + 900, 0);
+        this.jumpDistance = cc.v3(-202 + 273, this.bottle.y + 900, 0);
       }
     } else {
       this.bottleOriginPos = this.bottle.getPosition();
       if (dis < 300) {
-        this.jumpDistance = cc.v3(130 - 140, this.bottle.y + 300, 0);
+        this.jumpDistance = cc.v3(225 - 213, this.bottle.y + 300, 0);
       }
       if (dis > 300 && dis <= 400) {
-        this.jumpDistance = cc.v3(130 - 150, this.bottle.y + 450, 0);
+        this.jumpDistance = cc.v3(225 - 223, this.bottle.y + 450, 0);
       }
       if (dis > 400 && dis <= 480) {
-        this.jumpDistance = cc.v3(130 - 158, this.bottle.y + 550, 0);
+        this.jumpDistance = cc.v3(225 - 233, this.bottle.y + 550, 0);
       }
       if (dis > 480 && dis <= 520) {
-        this.jumpDistance = cc.v3(130 - 162, this.bottle.y + 600, 0);
+        this.jumpDistance = cc.v3(225 - 243, this.bottle.y + 600, 0);
       }
       if (dis > 520 && dis <= 600) {
-        this.jumpDistance = cc.v3(130 - 170, this.bottle.y + 650, 0);
+        this.jumpDistance = cc.v3(225 - 253, this.bottle.y + 650, 0);
       }
       if (dis > 600 && dis <= 700) {
-        this.jumpDistance = cc.v3(130 - 180, this.bottle.y + 750, 0);
+        this.jumpDistance = cc.v3(225 - 263, this.bottle.y + 750, 0);
       }
       if (dis > 700) {
-        this.jumpDistance = cc.v3(130 - 190, this.bottle.y + 900, 0);
+        this.jumpDistance = cc.v3(225 - 273, this.bottle.y + 900, 0);
       }
     }
   }
@@ -247,6 +248,7 @@ export default class GamePlayCtrl extends cc.Component {
   }
 
   up() {
+    console.log("jump distance", this.jumpDistance);
     this.bottleTemp.active = false;
     cc.tween(this.bottle)
       .parallel(
@@ -313,17 +315,17 @@ export default class GamePlayCtrl extends cc.Component {
     switch (this.perfectLand) {
       case 1:
         this.activeStar(1, this.starArrayPos[0]);
-        this.scheduleOnce(() => this.updateBar(1), 0.2);        
-
+        this.scheduleOnce(() => this.updateBar(1), 1.6);        
         break;
+
       case 2:
         this.activeStar(0, this.starArrayPos[1]);
         this.scheduleOnce(() => {
           this.activeStar(2, this.starArrayPos[2]);
         }, 0.2);
-        this.scheduleOnce(() => this.updateBar(2), 0.4);        
-
+        this.scheduleOnce(() => this.updateBar(2), 1.8);        
         break;
+
       case 3:
         this.activeStar(0, this.starArrayPos[3]);
         this.scheduleOnce(() => {
@@ -332,7 +334,7 @@ export default class GamePlayCtrl extends cc.Component {
         this.scheduleOnce(() => {
           this.activeStar(2, this.starArrayPos[4]);
         }, 0.4);        
-        this.scheduleOnce(() => this.updateBar(3), 0.6);        
+        this.scheduleOnce(() => this.updateBar(3), 2);        
         break;
 
       default:
@@ -373,7 +375,7 @@ export default class GamePlayCtrl extends cc.Component {
       cc.sequence(
         cc.fadeIn(0.2),
         cc.spawn(cc.moveTo(0.5, pos), cc.scaleTo(0.5, 2)),
-        cc.delayTime(1),
+        cc.delayTime(0.5),
         cc.spawn(cc.moveTo(0.2, cc.v2(0, 450)), cc.scaleTo(0.2, 0.25)),
         cc.fadeOut(0.2)
       )

@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "f0e20781-3144-4f1c-ab63-a3f0356a4e90",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 1000,
+  "height": 1000,
+  "platformSettings": {},
+  "subMetas": {
+    "Lovepik_com-401028564-five-pointed-star.bak": {
+      "ver": "1.0.6",
+      "uuid": "b6091cd4-6360-4208-ac35-eaa07653995b",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "f0e20781-3144-4f1c-ab63-a3f0356a4e90",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -0.5,
+      "offsetY": 0,
+      "trimX": 124,
+      "trimY": 115,
+      "width": 751,
+      "height": 770,
+      "rawWidth": 1000,
+      "rawHeight": 1000,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

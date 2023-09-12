@@ -99,7 +99,7 @@ export default class Bottle extends cc.Component {
                                 Objects.instance.createObject();
                                 GamePlayCtrl.instance.activeBottleTemp();
                                 GamePlayCtrl.instance.turnOn();
-                            }, 2.3);
+                            }, 1.8);
                         });
                         this.scheduleOnce(()=>{
                             this.tween.start();
@@ -130,7 +130,7 @@ export default class Bottle extends cc.Component {
                                 Objects.instance.createObject();
                                 GamePlayCtrl.instance.activeBottleTemp();
                                 GamePlayCtrl.instance.turnOn();
-                            }, 2.3);
+                            }, 1.8);
                         });
 
                         this.scheduleOnce(()=>{
@@ -146,7 +146,7 @@ export default class Bottle extends cc.Component {
                             Objects.instance.createObject();
                             GamePlayCtrl.instance.activeBottleTemp();
                             GamePlayCtrl.instance.turnOn();
-                        }, 2.5);
+                        }, 2);
                         break;
                 }
                 this.collisionCheck = 1;
