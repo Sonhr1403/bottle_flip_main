@@ -6102,6 +6102,9 @@
     "endGameScreen": {
       "__id__": 61
     },
+    "objControl": {
+      "__id__": 6
+    },
     "_id": "d5IbD8I+1BBL//FpuJ5AFn"
   }
 ]

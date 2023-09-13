@@ -44,10 +44,10 @@ export default class Objects extends cc.Component {
                 objNode.getComponent(cc.Sprite).spriteFrame = this.objectSF[i];
                 objNode.getComponent(cc.BoxCollider).size = objNode.getContentSize();
                 objNode.getComponent(cc.BoxCollider).offset.y = objNode.getContentSize().height/2;
+                objNode.setPosition(cc.v2(objNode.x, -405));
             } else {
                 this.noObject(objNode);
             }
-            cc.log(this.iArray)
         } else{
             this.createObject();
         }
@@ -59,6 +59,7 @@ export default class Objects extends cc.Component {
         objNode.width = 0;
         objNode.height = 0;
         objNode.getComponent(cc.BoxCollider).size = cc.size(200,10);
+        objNode.setPosition(cc.v2(objNode.x, -318));
     }
 }
 // book y: -405

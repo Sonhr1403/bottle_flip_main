@@ -34,7 +34,9 @@ export default class Bottle extends cc.Component {
                 let pos = cc.v2();
                 let pos2 = cc.v2();
                 let angle = 360 - GamePlayCtrl.instance.bottle.angle;
-                switch (perfectLand) {
+                console.error("Angle: ", angle)
+                this.scheduleOnce(()=>{
+                    switch (perfectLand) {
                     case 0:
                         GamePlayCtrl.instance.tween.stop();
                         if (GamePlayCtrl.instance.isfliped === 0) {
@@ -147,7 +149,9 @@ export default class Bottle extends cc.Component {
                             GamePlayCtrl.instance.turnOn();
                         }, 2);
                         break;
-                }
+                    }
+                }, 0.05)
+                
                 this.collisionCheck = 1;
             }     
         }
