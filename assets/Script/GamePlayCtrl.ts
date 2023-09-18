@@ -51,7 +51,8 @@ export default class GamePlayCtrl extends cc.Component {
   private jumpDistance: cc.Vec3 = null;
   bottleOriginPos: cc.Vec2 = null;
   isfliped: number = 0;
-  angle: number = 0;
+  angleUp: number = 0;
+  angleDown: number = 0;
   perfectLand: number = -1;
   private objectHeight: number = -1;
   private downY: number = -1;
@@ -208,38 +209,46 @@ export default class GamePlayCtrl extends cc.Component {
     this.downY =
       this.jumpDistance.y - this.bottleOriginPos.y - this.objectHeight;
     if (this.downY < 300) {
-      this.angle = 140;
+      this.angleDown = 160;
       this.perfectLand = 0;
     }
     if (this.downY > 300 && this.downY <= 400) {
-      this.angle = 170;
+      this.angleDown = 170;
       this.perfectLand = 1;
     }
     if (this.downY > 400 && this.downY <= 480) {
-      this.angle = 180;
+      this.angleDown = 180;
       this.perfectLand = 2;
     }
     if (this.downY > 480 && this.downY <= 520) {
-      this.angle = 180;
+      this.angleDown = 180;
       this.perfectLand = 3;
     }
     if (this.downY > 520 && this.downY <= 600) {
-      this.angle = 180;
+      this.angleDown = 180;
       this.perfectLand = 2;
     }
     if (this.downY > 600 && this.downY <= 700) {
-      this.angle = 190;
+      this.angleDown = 190;
       this.perfectLand = 1;
     }
     if (this.downY > 700) {
-      this.angle = 220;
+      this.angleDown = 200;
       this.perfectLand = 0;
     }
+
+    if (this.isfliped !== 0) {
+      this.angleUp = -180;
+      this.angleDown = -this.angleDown;
+    } else {
+      this.angleUp = 180;
+    }
+
     cc.log(
       "downY: ",
       this.downY,
       " + angle: ",
-      this.angle,
+      this.angleDown,
       " + perfect land: ",
       this.perfectLand
     );
@@ -250,7 +259,7 @@ export default class GamePlayCtrl extends cc.Component {
     cc.tween(this.bottle)
       .parallel(
         cc.tween().to(this.jumpDuration, { position: this.jumpDistance }),
-        cc.tween().by(this.jumpDuration, { angle: 180 })
+        cc.tween().by(this.jumpDuration, { angle: this.angleUp })
       )
       .call(() => {
         this.down();
@@ -266,33 +275,34 @@ export default class GamePlayCtrl extends cc.Component {
       x = -202;
     }
 
-    if (this.downY <= 300) {
-      this.jumpDistance = cc.v3(this.bottleTemp.x, this.bottleTemp.y - 300, 0);
-    }
-    if (this.downY > 300 && this.downY <= 400) {
-      this.jumpDistance = cc.v3(this.bottleTemp.x, this.bottleTemp.y, 0);
-    }
-    if (this.downY > 400 && this.downY <= 4380) {
-      this.jumpDistance = cc.v3(this.bottleTemp.x, this.bottleTemp.y, 0);
-    }
-    if (this.downY > 480 && this.downY <= 520) {
-      this.jumpDistance = cc.v3(this.bottleTemp.x, this.bottleTemp.y, 0);
-    }
-    if (this.downY > 520 && this.downY <= 600) {
-      this.jumpDistance = cc.v3(this.bottleTemp.x, this.bottleTemp.y, 0);
-    }
-    if (this.downY > 600 && this.downY <= 700) {
-      this.jumpDistance = cc.v3(this.bottleTemp.x, this.bottleTemp.y, 0);
-    }
-    if (this.downY > 700) {
-      this.jumpDistance = cc.v3(this.bottleTemp.x, this.bottleTemp.y - 300, 0);//this.objControl.objectNode[this.isfliped].y + this.objectHeight + extra - 100
-    }
+    this.jumpDistance = cc.v3(this.bottleTemp.x, this.bottleTemp.y - 10, 0);
+    // if (this.downY <= 300) {
+    //   this.jumpDistance = cc.v3(this.bottleTemp.x, this.bottleTemp.y-10, 0);
+    // }
+    // if (this.downY > 300 && this.downY <= 400) {
+    //   this.jumpDistance = cc.v3(this.bottleTemp.x, this.bottleTemp.y, 0);
+    // }
+    // if (this.downY > 400 && this.downY <= 4380) {
+    //   this.jumpDistance = cc.v3(this.bottleTemp.x, this.bottleTemp.y, 0);
+    // }
+    // if (this.downY > 480 && this.downY <= 520) {
+    //   this.jumpDistance = cc.v3(this.bottleTemp.x, this.bottleTemp.y, 0);
+    // }
+    // if (this.downY > 520 && this.downY <= 600) {
+    //   this.jumpDistance = cc.v3(this.bottleTemp.x, this.bottleTemp.y, 0);
+    // }
+    // if (this.downY > 600 && this.downY <= 700) {
+    //   this.jumpDistance = cc.v3(this.bottleTemp.x, this.bottleTemp.y, 0);
+    // }
+    // if (this.downY > 700) {
+    //   this.jumpDistance = cc.v3(this.bottleTemp.x, this.bottleTemp.y-10, 0);
+    // }
 
     this.tween = cc
       .tween(this.bottle)
       .parallel(
         cc.tween().to(this.jumpDuration, { position: this.jumpDistance }),
-        cc.tween().by(this.jumpDuration, { angle: this.angle })
+        cc.tween().by(this.jumpDuration, { angle: this.angleDown })
       );
     this.tween.start();
   }

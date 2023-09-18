@@ -24,7 +24,7 @@
   "start-scene": "74411d84-3e80-4db9-9f6d-d865e93fa55b",
   "design-resolution-width": 1920,
   "design-resolution-height": 1080,
-  "fit-width": true,
+  "fit-width": false,
   "fit-height": true,
   "use-project-simulator-setting": false,
   "simulator-orientation": false,

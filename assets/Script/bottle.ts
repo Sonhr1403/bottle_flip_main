@@ -33,13 +33,15 @@ export default class Bottle extends cc.Component {
                 let perfectLand = GamePlayCtrl.instance.perfectLand;
                 let pos = cc.v2();
                 let pos2 = cc.v2();
-                let angle = 360 - GamePlayCtrl.instance.bottle.angle;
-                console.error("Angle: ", angle)
+                let isFliped = GamePlayCtrl.instance.isfliped;
+                let angle = GamePlayCtrl.instance.angleDown;
+                let angle2 = isFliped === 0 ? 180 - angle : - 180 - angle;
+                console.error("isFliped", isFliped, "Angle: ", angle2)
                 this.scheduleOnce(()=>{
                     switch (perfectLand) {
                     case 0:
                         GamePlayCtrl.instance.tween.stop();
-                        if (GamePlayCtrl.instance.isfliped === 0) {
+                        if (isFliped === 0) {
                             pos = cc.v2(50,75);
                         } else {
                             pos = cc.v2(- 50, 75);
@@ -73,7 +75,7 @@ export default class Bottle extends cc.Component {
                         break;
 
                     case 1:
-                        if (GamePlayCtrl.instance.isfliped === 0) {
+                        if (isFliped === 0) {
                             pos = cc.v2(10,10);
                             pos2 = cc.v2(10,- 10);
                         } else {
@@ -83,20 +85,20 @@ export default class Bottle extends cc.Component {
                         cc.tween(this.node)
                         .parallel(
                         cc.tween().by(0.1, { position: pos }),
-                        cc.tween().by(0.1, { angle: angle/2 })
+                        cc.tween().by(0.1, { angle: angle2/2 })
                         )
                         .start();
 
                         this.tween = cc.tween(this.node)
                         .parallel(
                         cc.tween().by(0.1, { position: pos2 }),
-                        cc.tween().by(0.1, { angle: angle/2 })
+                        cc.tween().by(0.1, { angle: angle2/2 })
                         )
                         .call(()=>{
                             GamePlayCtrl.instance.addScore();
                             GamePlayCtrl.instance.showStar();
                             this.scheduleOnce(()=>{
-                                GamePlayCtrl.instance.isfliped = GamePlayCtrl.instance.isfliped === 0 ? 1 : 0;
+                                GamePlayCtrl.instance.isfliped = isFliped === 0 ? 1 : 0;
                                 Objects.instance.createObject();
                                 GamePlayCtrl.instance.activeBottleTemp();
                                 GamePlayCtrl.instance.turnOn();
@@ -108,7 +110,7 @@ export default class Bottle extends cc.Component {
                         break;
 
                     case 2:
-                        if (GamePlayCtrl.instance.isfliped === 0) {
+                        if (isFliped === 0) {
                             pos = cc.v2(+ 10, + 10);
                             pos2 = cc.v2(+ 10, - 10);
                         } else {
@@ -127,7 +129,7 @@ export default class Bottle extends cc.Component {
                             GamePlayCtrl.instance.addScore();
                             GamePlayCtrl.instance.showStar();
                             this.scheduleOnce(()=>{
-                                GamePlayCtrl.instance.isfliped = GamePlayCtrl.instance.isfliped === 0 ? 1 : 0;
+                                GamePlayCtrl.instance.isfliped = isFliped === 0 ? 1 : 0;
                                 Objects.instance.createObject();
                                 GamePlayCtrl.instance.activeBottleTemp();
                                 GamePlayCtrl.instance.turnOn();
@@ -143,11 +145,14 @@ export default class Bottle extends cc.Component {
                         GamePlayCtrl.instance.addScore();
                         GamePlayCtrl.instance.showStar();
                         this.scheduleOnce(()=>{
-                            GamePlayCtrl.instance.isfliped = GamePlayCtrl.instance.isfliped === 0 ? 1 : 0;
+                            GamePlayCtrl.instance.isfliped = isFliped === 0 ? 1 : 0;
                             Objects.instance.createObject();
                             GamePlayCtrl.instance.activeBottleTemp();
                             GamePlayCtrl.instance.turnOn();
                         }, 2);
+                        break;
+                    default:
+                        this.onCollisionEnter(null, this.node.getComponent(cc.BoxCollider));
                         break;
                     }
                 }, 0.05)
@@ -159,7 +164,7 @@ export default class Bottle extends cc.Component {
 
     reset(){
         this.node.setPosition(GamePlayCtrl.instance.bottleOriginPos);
-        this.node.angle = 0;
+        this.node.angle = GamePlayCtrl.instance.isfliped == 0 ? 0 : 360;
         GamePlayCtrl.instance.bottleTemp.active = true;
         GamePlayCtrl.instance.perfectLand = -1;
         GamePlayCtrl.instance.turnOn();
