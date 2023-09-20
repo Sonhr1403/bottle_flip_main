@@ -69,7 +69,7 @@ export default class Bottle extends cc.Component {
                                     GamePlayCtrl.instance.updateLives();
                                     this.reset();
                                 } else{
-                                    this.scheduleOnce(() => {GamePlayCtrl.instance.endGameScreen.active = true}, 0.5);
+                                    this.scheduleOnce(() => {GamePlayCtrl.instance.endGame.active = true}, 0.5);
                                 }
                             }, 1)
                         }, 0.2)

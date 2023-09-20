@@ -3750,7 +3750,7 @@
         "__id__": 111
       }
     ],
-    "_active": true,
+    "_active": false,
     "_components": [],
     "_prefab": null,
     "_opacity": 255,
@@ -3915,7 +3915,7 @@
       "__id__": 82
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 87
