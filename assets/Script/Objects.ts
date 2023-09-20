@@ -16,10 +16,10 @@ export default class Objects extends cc.Component {
     public static instance = null;
 
     @property(cc.SpriteFrame)
-    objectSF: cc.SpriteFrame[] = [];
+    private objectSF: cc.SpriteFrame[] = [];
 
     @property(cc.Node)
-    objectNode: cc.Node[] = [];
+    public objectNode: cc.Node[] = [];
 
     public iArray: number[] = [0, 0];
 
@@ -35,7 +35,7 @@ export default class Objects extends cc.Component {
 
     // update (dt) {}
 
-    createObject(){
+    public createObject(){
         let i = Bottle.instance.getRandomNumberInRange(0, this.objectSF.length);
         let objNode = this.objectNode[GamePlayCtrl.instance.isfliped];
         if(i !== this.iArray[0] && i !== this.iArray[1]){
@@ -54,12 +54,18 @@ export default class Objects extends cc.Component {
 
     }
 
-    noObject(objNode){
+    private noObject(objNode){
         objNode.getComponent(cc.Sprite).spriteFrame = null;
         objNode.width = 0;
         objNode.height = 0;
         objNode.getComponent(cc.BoxCollider).size = cc.size(200,10);
         objNode.setPosition(cc.v2(objNode.x, -318));
+    }
+
+    public reset(){
+        this.noObject(this.objectNode[0]);
+        this.noObject(this.objectNode[1]);
+        this.iArray = [0,0];
     }
 }
 // book y: -405

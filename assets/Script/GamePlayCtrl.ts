@@ -14,30 +14,31 @@ const { ccclass, property } = cc._decorator;
 export default class GamePlayCtrl extends cc.Component {
   public static instance = null;
   @property(cc.Node)
-  pause: cc.Node = null;
+  private pause: cc.Node = null;
+  
   @property(cc.Node)
-  Setting: cc.Node = null;
+  private setting: cc.Node = null;
 
   @property(cc.Node)
-  bottle: cc.Node = null;
+  private bottle: cc.Node = null;
 
   @property(cc.Node)
-  bottleTemp: cc.Node = null;
+  private bottleTemp: cc.Node = null;
 
   @property(cc.Label)
-  lblScore: cc.Label = null;
+  private lblScore: cc.Label = null;
 
   @property(cc.Node)
-  starArrs: cc.Node[] = [];
+  private starArrs: cc.Node[] = [];
 
   @property(cc.Node)
-  livesArrs: cc.Node[] = [];
+  private livesArrs: cc.Node[] = [];
 
   @property(cc.Sprite)
-  scoreLoad: cc.Sprite = null;
+  private scoreLoad: cc.Sprite = null;
 
   @property(cc.Node)
-  endGameScreen: cc.Node = null;
+  private endGame: cc.Node = null;
 
   @property(Objects)
   private objControl: Objects = null;
@@ -49,17 +50,17 @@ export default class GamePlayCtrl extends cc.Component {
   private distance: number = null;
   private jumpDuration: number = null;
   private jumpDistance: cc.Vec3 = null;
-  bottleOriginPos: cc.Vec2 = null;
-  isfliped: number = 0;
-  angleUp: number = 0;
-  angleDown: number = 0;
-  perfectLand: number = -1;
+  private bottleOriginPos: cc.Vec2 = null;
+  public isfliped: number = 0;
+  private angleUp: number = 0;
+  public angleDown: number = 0;
+  public perfectLand: number = -1;
   private objectHeight: number = -1;
   private downY: number = -1;
 
-  lives: number = 3;
+  private lives: number = 3;
 
-  tween: cc.Tween = null;
+  public tween: cc.Tween = null;
 
   private starArrayPos = [
     cc.v2(0, 100),
@@ -69,13 +70,13 @@ export default class GamePlayCtrl extends cc.Component {
     cc.v2(200, 150),
   ];
 
-  onLoad() {
+  protected onLoad() {
     GamePlayCtrl.instance = this;
     this.resetGame();
   }
 
 
-  updateLives() {
+  private updateLives() {
     switch (this.lives) {
       case 3:
         this.livesArrs[0].active = true;
@@ -95,24 +96,24 @@ export default class GamePlayCtrl extends cc.Component {
     }
   }
 
-  turnOn() {
+  public turnOn() {
     this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
     this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
     console.log("on");
     console.log("----------------------");
   }
 
-  turnOff() {
+  private turnOff() {
     this.node.off(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
     this.node.off(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
     console.log("off");
   }
 
-  onTouchStart(event: cc.Event.EventTouch) {
+  private onTouchStart(event: cc.Event.EventTouch) {
     this.startClickPos = event.getLocation();
   }
 
-  onTouchEnd(event: cc.Event.EventTouch) {
+  private onTouchEnd(event: cc.Event.EventTouch) {
     this.endPos = event.getLocation();
 
     // Tính khoảng cách giữa hai vị trí
@@ -126,11 +127,11 @@ export default class GamePlayCtrl extends cc.Component {
       this.setJumpDistance(this.distance);
       this.setAngle();
       this.turnOff();
-      this.scheduleOnce(this.up, 0.1);
+      this.up();
     }
   }
 
-  setJumpDuration(dis: number) {
+  private setJumpDuration(dis: number) {
     if (dis <= 300) {
       this.jumpDuration = 0.4;
     }
@@ -154,7 +155,7 @@ export default class GamePlayCtrl extends cc.Component {
     }
   }
 
-  setJumpDistance(dis: number) {
+  private setJumpDistance(dis: number) {
     console.log("is filiped", this.isfliped)
     if (this.isfliped === 0) {
       if (dis <= 300) {
@@ -204,11 +205,11 @@ export default class GamePlayCtrl extends cc.Component {
     }
   }
 
-  setAngle() {
+  private setAngle() {
     this.objectHeight = this.objControl.objectNode[this.isfliped].height;
     this.downY =
       this.jumpDistance.y - this.bottleOriginPos.y - this.objectHeight;
-    if (this.downY < 300) {
+    if (this.downY <= 300) {
       this.angleDown = 160;
       this.perfectLand = 0;
     }
@@ -252,9 +253,10 @@ export default class GamePlayCtrl extends cc.Component {
       " + perfect land: ",
       this.perfectLand
     );
+
   }
 
-  up() {
+  private up() {
     this.bottleTemp.active = false;
     cc.tween(this.bottle)
       .parallel(
@@ -267,7 +269,7 @@ export default class GamePlayCtrl extends cc.Component {
       .start();
   }
 
-  down() {
+  private down() {
     let x = 0;
     if (this.isfliped === 0) {
       x = 225;
@@ -307,7 +309,7 @@ export default class GamePlayCtrl extends cc.Component {
     this.tween.start();
   }
 
-  activeBottleTemp() {
+  public activeBottleTemp() {
     this.bottleTemp.active = true;
     let extra = this.getExtra();
     let x = this.isfliped == 0 ? 225 : -202;
@@ -319,7 +321,7 @@ export default class GamePlayCtrl extends cc.Component {
     this.bottleOriginPos = this.bottle.getPosition();
   }
 
-  getExtra(){
+  private getExtra(){
     let obj = this.objControl.iArray[this.isfliped];
     let extra = 0;
     switch (obj) {
@@ -342,7 +344,7 @@ export default class GamePlayCtrl extends cc.Component {
     return extra
   }
 
-  showStar() {
+  public showStar() {
     switch (this.perfectLand) {
       case 1:
         this.activeStar(1, this.starArrayPos[0]);
@@ -370,7 +372,7 @@ export default class GamePlayCtrl extends cc.Component {
     }
   }
 
-  updateBar() {
+  private updateBar() {
     this.scoreLoad.fillRange += 0.1;
     this.scoreLoad.fillRange = Number(this.scoreLoad.fillRange.toFixed(1));
     if(this.scoreLoad.fillRange == 1){
@@ -382,7 +384,7 @@ export default class GamePlayCtrl extends cc.Component {
     }
   }
 
-  activeStar(i: number, pos: cc.Vec2) {
+  private activeStar(i: number, pos: cc.Vec2) {
     this.starArrs[i].setPosition(this.bottle.getPosition());
     this.starArrs[i].scale = 0.25;
     // let pos2 = this.scoreLoad.node.convertToWorldSpaceAR(this.scoreLoad.node.getPosition());
@@ -401,31 +403,49 @@ export default class GamePlayCtrl extends cc.Component {
     }, 1.6)
   }
 
-  addScore() {
+  public addScore() {
     this.lblScore.string = (Number(this.lblScore.string) + 1).toString();
   }
 
-  resetGame() {
-    this.objControl.noObject(this.objControl.objectNode[0]);
-    this.objControl.noObject(this.objControl.objectNode[1]);
-    this.objControl.iArray = [0,0];
+  public resetGame() {
     this.isfliped = 0;
+    this.objControl.reset();
+    this.resetBottle();
+    this.resetLives();
+    this.resetScore();
+    this.inactiveAllPopup();
+    this.turnOn();
+  }
+
+  private resetBottle(){
     this.bottle.setPosition(cc.v2(-202, -144));
     this.bottle.angle = 0;
     this.bottleOriginPos = this.bottle.getPosition();
     this.bottleTemp.active = true;
     this.bottleTemp.setPosition(225, -144);
-    this.lives = 3;
-    this.updateLives();
-    this.lblScore.string = "0";
-    this.scoreLoad.fillRange = 0
-    this.turnOn();
   }
 
-  toggleSetting() {
-    this.Setting.active = !this.Setting.active
+  private resetLives(){
+    this.lives = 3;
+    this.updateLives();
   }
-  togglePause() {
+
+  private resetScore(){
+    this.lblScore.string = "0";
+    this.scoreLoad.fillRange = 0
+  }
+
+  private inactiveAllPopup(){
+    this.setting.active = false;
+    this.pause.active = false;
+    this.endGame.active = false;
+  }
+
+  private toggleSetting() {
+    this.setting.active = !this.setting.active
+  }
+
+  private togglePause() {
     this.pause.active = !this.pause.active
   }
 }

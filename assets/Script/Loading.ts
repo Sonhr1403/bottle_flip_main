@@ -4,14 +4,14 @@ const {ccclass, property} = cc._decorator;
 export default class Loading extends cc.Component {
 
     @property(cc.Sprite)
-    bar: cc.Sprite = null;
+    private bar: cc.Sprite = null;
 
     @property(cc.Label)
-    loadLbl: cc.Label = null;
+    private loadLbl: cc.Label = null;
 
-    progress: number = 0;
+    private progress: number = 0;
 
-    onLoad () {
+    protected onLoad () {
         this.progress = 0;
 
         this.bar.fillRange = 0;
@@ -24,7 +24,7 @@ export default class Loading extends cc.Component {
         // localStorage.setItem("soundStatus", "true");
     }
 
-    updateString() {
+    private updateString() {
         cc.log("run")
         this.loadLbl.string = "Loading";
         this.scheduleOnce(() => {
@@ -38,16 +38,12 @@ export default class Loading extends cc.Component {
         }, 0.3);     
     }
 
-    update (dt) {
+    protected update (dt) {
         this.progress += 0.01;
         this.bar.fillRange = this.progress;
         if (this.bar.fillRange == 1) {
             cc.director.loadScene('Lobby');
             this.progress = 0
         }
-    }
-
-    protected onDestroy(): void {
-        
     }
 }

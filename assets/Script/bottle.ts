@@ -15,9 +15,9 @@ export default class Bottle extends cc.Component {
 
     public static instance = null;
 
-    tween: cc.Tween = null;
+    private tween: cc.Tween = null;
 
-    collisionCheck: number = 0;
+    private collisionCheck: number = 0;
 
     // LIFE-CYCLE CALLBACKS:
 
@@ -26,7 +26,7 @@ export default class Bottle extends cc.Component {
         cc.director.getCollisionManager().enabled = true;
     }
 
-    onCollisionEnter(otherCollider, selfCollider) {
+    private onCollisionEnter(otherCollider, selfCollider) {
         if(selfCollider == this.node.getComponent(cc.BoxCollider)){
             if(this.collisionCheck === 0){
                 console.log('Collision enter');
@@ -163,7 +163,7 @@ export default class Bottle extends cc.Component {
         }
     }
 
-    reset(){
+    private reset(){
         this.node.setPosition(GamePlayCtrl.instance.bottleOriginPos);
         this.node.angle = GamePlayCtrl.instance.isfliped == 0 ? 0 : 360;
         GamePlayCtrl.instance.bottleTemp.active = true;
@@ -171,7 +171,7 @@ export default class Bottle extends cc.Component {
         GamePlayCtrl.instance.turnOn();
     }
 
-    getRandomNumberInRange(min: number, max: number): number {
+    public getRandomNumberInRange(min: number, max: number): number {
         let randomValue = Math.random();
         let randomNumberInRange = randomValue * (max - min) + min;
         return Math.floor(randomNumberInRange);

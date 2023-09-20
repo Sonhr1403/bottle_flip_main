@@ -12,24 +12,24 @@ export default class endGame extends cc.Component {
     public static instance = null;
 
     @property(cc.Label)
-    scoreLabel: cc.Label = null;
+    private scoreLabel: cc.Label = null;
 
-    
-
-    onLoad () {
-        endGame.instance = this;  
+    protected onLoad () {
+        endGame.instance = this;
+        cc.director.preloadScene('Lobby');
     }
 
     protected onEnable(): void {
         this.scoreLabel.string = GamePlayCtrl.instance.lblScore.string
     }
 
-    resetGame(){
+    private resetGame(){
         GamePlayCtrl.instance.resetGame();
-        this.node.active = false
     }
     
-
+    private backtolobby(){
+        cc.director.loadScene('Lobby');
+    }
 
     // update (dt) {}
 }
