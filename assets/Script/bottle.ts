@@ -36,6 +36,7 @@ export default class Bottle extends cc.Component {
                 let isFliped = GamePlayCtrl.instance.isfliped;
                 let angle = GamePlayCtrl.instance.angleDown;
                 let angle2 = isFliped === 0 ? 180 - angle : - 180 - angle;
+                let angle3 = isFliped === 0 ? 360 : 0;
                 console.error("isFliped", isFliped, "Angle: ", angle2)
                 this.scheduleOnce(()=>{
                     switch (perfectLand) {
@@ -92,7 +93,7 @@ export default class Bottle extends cc.Component {
                         this.tween = cc.tween(this.node)
                         .parallel(
                         cc.tween().by(0.1, { position: pos2 }),
-                        cc.tween().by(0.1, { angle: angle2/2 })
+                        cc.tween().to(0.1, { angle: angle3 })
                         )
                         .call(()=>{
                             GamePlayCtrl.instance.addScore();

@@ -310,12 +310,12 @@ export default class GamePlayCtrl extends cc.Component {
   activeBottleTemp() {
     this.bottleTemp.active = true;
     let extra = this.getExtra();
-    this.bottleTemp.setPosition(
-      cc.v2(
-        this.bottleOriginPos.x,
-        this.objControl.objectNode[this.isfliped].y + this.objControl.objectNode[this.isfliped].height + extra
-      )
-    );
+    let x = this.isfliped == 0 ? 225 : -202;
+    let pos = cc.v2(
+      x,
+      this.objControl.objectNode[this.isfliped].y + this.objControl.objectNode[this.isfliped].height + extra
+    )
+    this.bottleTemp.setPosition(pos);
     this.bottleOriginPos = this.bottle.getPosition();
   }
 
