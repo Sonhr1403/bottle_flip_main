@@ -63,13 +63,18 @@ export default class Bottle extends cc.Component {
         
                         this.scheduleOnce(()=>{
                             this.tween.start();
+                            GamePlayCtrl.instance.settingCtrl.playType(4);
                             this.scheduleOnce(()=>{
+                            GamePlayCtrl.instance.settingCtrl.playType(7);
                                 GamePlayCtrl.instance.lives -= 1;
                                 if (GamePlayCtrl.instance.lives > 0) {
                                     GamePlayCtrl.instance.updateLives();
                                     this.reset();
                                 } else{
-                                    this.scheduleOnce(() => {GamePlayCtrl.instance.endGame.active = true}, 0.5);
+                                    this.scheduleOnce(() => {
+                                        GamePlayCtrl.instance.settingCtrl.playType(8);
+                                        GamePlayCtrl.instance.endGame.active = true;
+                                    }, 0.5);
                                 }
                             }, 1)
                         }, 0.2)

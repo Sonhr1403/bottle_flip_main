@@ -6,6 +6,7 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
 import Objects from "./Objects";
+import SettingCtrl from "./SettingCtrl";
 import Bottle from "./bottle";
 
 const { ccclass, property } = cc._decorator;
@@ -42,6 +43,9 @@ export default class GamePlayCtrl extends cc.Component {
 
   @property(Objects)
   private objControl: Objects = null;
+
+  @property(SettingCtrl)
+  private settingCtrl: SettingCtrl = null;
   // LIFE-CYCLE CALLBACKS:
 
   private startClickPos: cc.Vec2 = null;
@@ -73,6 +77,7 @@ export default class GamePlayCtrl extends cc.Component {
   protected onLoad() {
     GamePlayCtrl.instance = this;
     this.resetGame();
+    this.settingCtrl.playType(0);
   }
 
 
@@ -257,6 +262,7 @@ export default class GamePlayCtrl extends cc.Component {
   }
 
   private up() {
+    this.settingCtrl.playType(2);
     this.bottleTemp.active = false;
     cc.tween(this.bottle)
       .parallel(
@@ -378,6 +384,7 @@ export default class GamePlayCtrl extends cc.Component {
     if(this.scoreLoad.fillRange == 1){
       this.scoreLoad.fillRange = 0
       if (this.lives < 3) {
+        this.settingCtrl.playType(6);
         this.lives +=1;
         this.updateLives();
       }
@@ -385,6 +392,7 @@ export default class GamePlayCtrl extends cc.Component {
   }
 
   private activeStar(i: number, pos: cc.Vec2) {
+    this.settingCtrl.playType(5);
     this.starArrs[i].setPosition(this.bottle.getPosition());
     this.starArrs[i].scale = 0.25;
     // let pos2 = this.scoreLoad.node.convertToWorldSpaceAR(this.scoreLoad.node.getPosition());
@@ -408,6 +416,7 @@ export default class GamePlayCtrl extends cc.Component {
   }
 
   public resetGame() {
+    this.settingCtrl.playType(1);
     this.isfliped = 0;
     this.objControl.reset();
     this.resetBottle();
@@ -442,10 +451,15 @@ export default class GamePlayCtrl extends cc.Component {
   }
 
   private toggleSetting() {
-    this.setting.active = !this.setting.active
+    this.setting.active = !this.setting.active;
+    if (this.setting.active) {
+      this.settingCtrl.setMusicOnOff();
+      this.settingCtrl.setSoundOnOff();
+      // this.settingCtrl.setVibrationOnOff();
+    }
   }
 
   private togglePause() {
-    this.pause.active = !this.pause.active
+    this.pause.active = !this.pause.active;
   }
 }

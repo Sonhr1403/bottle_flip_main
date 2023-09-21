@@ -20,12 +20,13 @@ export default class Loading extends cc.Component {
 
         this.schedule(this.updateString, 0.4, 3)
 
-        // localStorage.setItem("musicStatus", "true");
-        // localStorage.setItem("soundStatus", "true");
+        localStorage.setItem("soundStatus", "true");
+        localStorage.setItem("musicStatus", "true");
+        localStorage.setItem("vibrationStatus", "true");
+        localStorage.setItem("volume", "0.5");
     }
 
     private updateString() {
-        cc.log("run")
         this.loadLbl.string = "Loading";
         this.scheduleOnce(() => {
             this.loadLbl.string = "Loading.";
