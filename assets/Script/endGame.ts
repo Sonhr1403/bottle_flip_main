@@ -26,10 +26,7 @@ export default class endGame extends cc.Component {
     private resetGame(){
         GamePlayCtrl.instance.resetGame();
     }
-    
-    private backtolobby(){
-        cc.director.loadScene('Lobby');
-    }
+
 
     // update (dt) {}
 }

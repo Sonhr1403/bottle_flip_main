@@ -462,4 +462,8 @@ export default class GamePlayCtrl extends cc.Component {
   private togglePause() {
     this.pause.active = !this.pause.active;
   }
+ 
+  private backtolobby(){
+    cc.director.loadScene('Lobby');
+}
 }
