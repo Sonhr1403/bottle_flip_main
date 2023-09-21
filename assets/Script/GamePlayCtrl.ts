@@ -464,6 +464,7 @@ export default class GamePlayCtrl extends cc.Component {
   }
  
   private backtolobby(){
+    this.settingCtrl.stopAll();
     cc.director.loadScene('Lobby');
 }
 }
