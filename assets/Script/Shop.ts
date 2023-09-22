@@ -37,21 +37,22 @@ export default class Shop extends cc.Component {
     ]
     // LIFE-CYCLE CALLBACKS:
 
-    protected onLoad(): void {
+    public updateItem(): void {
         this.listItem = JSON.parse(localStorage.getItem("listItem"));
-        console.log(!this.listItem)
         if (!this.listItem) {
             localStorage.setItem("listItem", JSON.stringify(this.listItemInit));
             this.listItem = this.listItemInit;
         }
-        console.log(this.listItem);
 
         this.content.removeAllChildren();
         for(let item of this.listItem){
-            console.log(item);
             let itemNode = cc.instantiate(this.shopItem);
             itemNode.getComponent(ShopItem).initItem(item);
             this.content.addChild(itemNode);
         }
+    }
+
+    private hide(){
+        this.node.active = false;
     }
 }

@@ -30,10 +30,11 @@ export default class ShopItem extends cc.Component {
     @property(cc.SpriteFrame)
     private sfBtn: cc.SpriteFrame[] = [];
 
-
+    private item: itemShop = null;
     // LIFE-CYCLE CALLBACKS:
 
     public initItem(item: itemShop){
+        this.item = item;
         this.bottle.spriteFrame = this.sfBottle[item.id];
         if (item.isBought) {
             if (item.isUsing) {
@@ -46,16 +47,15 @@ export default class ShopItem extends cc.Component {
             this.btn.getComponent(cc.Sprite).spriteFrame = this.sfBtn[0];
             this.price.string = item.price.toString();
             let coinNode = new cc.Node("coinNode" + item.id);
-            // coinNode.setContentSize(49,49);
-            coinNode.width = 49;
-            coinNode.height = 49;
             coinNode.addComponent(cc.Sprite);
             coinNode.getComponent(cc.Sprite).spriteFrame = this.coin;
-            console.log(coinNode);
             this.btn.addChild(coinNode);
-            console.log(coinNode);
-            coinNode.scale = 0.4;
             coinNode.y = 5;
+            coinNode.setScale(0.35);
         }
+    }
+
+    private onClick(){
+        
     }
 }
