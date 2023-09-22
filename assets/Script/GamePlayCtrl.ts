@@ -46,6 +46,9 @@ export default class GamePlayCtrl extends cc.Component {
 
   @property(SettingCtrl)
   private settingCtrl: SettingCtrl = null;
+
+  @property(cc.Node)
+  private canvas: cc.Node = null;
   // LIFE-CYCLE CALLBACKS:
 
   private startClickPos: cc.Vec2 = null;
@@ -80,7 +83,6 @@ export default class GamePlayCtrl extends cc.Component {
     this.settingCtrl.playType(0);
   }
 
-
   private updateLives() {
     switch (this.lives) {
       case 3:
@@ -102,16 +104,17 @@ export default class GamePlayCtrl extends cc.Component {
   }
 
   public turnOn() {
-    this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
-    this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
+    this.canvas.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+    this.canvas.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
     console.log("on");
     console.log("----------------------");
   }
 
   private turnOff() {
-    this.node.off(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
-    this.node.off(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
+    this.canvas.off(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+    this.canvas.off(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
     console.log("off");
+    console.log("----------------------");
   }
 
   private onTouchStart(event: cc.Event.EventTouch) {
