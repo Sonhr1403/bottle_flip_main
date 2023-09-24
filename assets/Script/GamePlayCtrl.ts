@@ -7,6 +7,7 @@
 
 import Objects from "./Objects";
 import SettingCtrl from "./SettingCtrl";
+import Shop, { itemShop } from "./Shop";
 import Bottle from "./bottle";
 
 const { ccclass, property } = cc._decorator;
@@ -53,6 +54,15 @@ export default class GamePlayCtrl extends cc.Component {
   @property(cc.Label)
   private goldCoin: cc.Label = null;
 
+  @property(cc.Sprite)
+  private table: cc.Sprite = null;
+
+  @property(cc.Sprite)
+  private backGround: cc.Sprite = null;
+
+  @property(cc.SpriteFrame)
+  private sfItem: cc.SpriteFrame[] = [];
+
   private gold: number = -1;
 
   private startClickPos: cc.Vec2 = null;
@@ -84,7 +94,31 @@ export default class GamePlayCtrl extends cc.Component {
   protected onLoad() {
     GamePlayCtrl.instance = this;
     this.resetGame();
+    this.setSkin();
     this.settingCtrl.playType(0);
+  }
+
+  private setSkin(){
+    let listItem: itemShop[] = JSON.parse(localStorage.getItem("listItem"));
+    for (let i = 0; i < listItem.length; i++) {
+      if (listItem[i].isUsing) {
+        switch (listItem[i].type) {
+          case "bottle":
+            this.bottle.getComponent(cc.Sprite).spriteFrame = this.sfItem[i];
+            this.bottleTemp.getComponent(cc.Sprite).spriteFrame = this.sfItem[i];
+            break;
+        
+          case "table":
+            this.table.getComponent(cc.Sprite).spriteFrame = this.sfItem[i];
+            break;
+        
+          case "bg":
+            this.backGround.getComponent(cc.Sprite).spriteFrame = this.sfItem[i];
+            break;
+        
+        }
+      }
+    }
   }
 
   private updateLives() {

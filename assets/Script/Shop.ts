@@ -5,6 +5,8 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/2.4/manual/en/scripting/life-cycle-callbacks.html
 
+import GamePlayCtrl from "./GamePlayCtrl";
+import LobbyCtrl from "./LobbyCtrl";
 import ShopItem from "./ShopItem";
 
 const {ccclass, property} = cc._decorator;
@@ -35,6 +37,9 @@ export default class Shop extends cc.Component {
 
     @property(cc.Node)
     public alert: cc.Node = null;
+
+    @property(cc.SpriteFrame)
+    public sfItem: cc.SpriteFrame[] = [];
 
     private listItem: itemShop[] = [];
 
@@ -83,12 +88,13 @@ export default class Shop extends cc.Component {
                 this.currentItem.isBought = true;
                 gold -= this.currentItem.price;
                 localStorage.setItem("goldCoin", gold.toString());
+                LobbyCtrl.instance.gold = gold;
             } else{
                 this.alert.active = true;
                 this.alert.children[0].getComponent(cc.Label).string = "You don't have enough gold to buy the item!";
                 this.scheduleOnce(()=>{
                     this.alert.active = false;
-                }, 3)
+                }, 3);
             }
         } else {
             if (!this.currentItem.isUsing) {
@@ -99,7 +105,7 @@ export default class Shop extends cc.Component {
                 this.alert.children[0].getComponent(cc.Label).string = "You're already using the item";
                 this.scheduleOnce(()=>{
                     this.alert.active = false;
-                }, 3)
+                }, 3);
             }
         }
         this.updateCurrentItem();

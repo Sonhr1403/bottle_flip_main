@@ -25,9 +25,6 @@ export default class ShopItem extends cc.Component {
     private coin: cc.SpriteFrame = null;
 
     @property(cc.SpriteFrame)
-    private sfItem: cc.SpriteFrame[] = [];
-
-    @property(cc.SpriteFrame)
     private sfBtn: cc.SpriteFrame[] = [];
 
     private item: itemShop = null;
@@ -35,9 +32,9 @@ export default class ShopItem extends cc.Component {
 
     public initItem(item: itemShop){
         this.item = item;
-        this.bottle.spriteFrame = this.sfItem[item.id];
-        this.bottle.node.width = this.sfItem[item.id].getOriginalSize().width;
-        this.bottle.node.height = this.sfItem[item.id].getOriginalSize().height;
+        this.bottle.spriteFrame = Shop.instance.sfItem[item.id];
+        this.bottle.node.width = Shop.instance.sfItem[item.id].getOriginalSize().width;
+        this.bottle.node.height = Shop.instance.sfItem[item.id].getOriginalSize().height;
         if(item.id < 6){
             this.bottle.node.scale = 1;
         } else if (item.id >= 6 && item.id < 8) {

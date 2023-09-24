@@ -12,6 +12,8 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class LobbyCtrl extends cc.Component {
 
+    public static instance: LobbyCtrl = null;
+
     @property(cc.Node)
     private shop: cc.Node = null;
 
@@ -28,6 +30,7 @@ export default class LobbyCtrl extends cc.Component {
     // LIFE-CYCLE CALLBACKS:
 
     protected onLoad () {
+        LobbyCtrl.instance = this;
         cc.director.preloadScene("GamePlay");
         // const canvas = cc.find("Canvas"); // Thay "Canvas" bằng tên của đối tượng Canvas trong cảnh của bạn
         // const canvasComponent = canvas.getComponent(cc.Canvas);
@@ -36,7 +39,7 @@ export default class LobbyCtrl extends cc.Component {
         //canvasComponent.designResolution = cc.view.getFrameSize();
 
         this.gold = Number(localStorage.getItem("goldCoin"));
-        if (!this.goldCoin) {
+        if (!this.gold) {
             localStorage.setItem("goldCoin", "10");
             this.gold = 10;
         }

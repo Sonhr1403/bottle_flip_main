@@ -43,8 +43,8 @@ export default class Loading extends cc.Component {
         this.progress += 0.01;
         this.bar.fillRange = this.progress;
         if (this.bar.fillRange == 1) {
+            this.unschedule(this.updateString);
             cc.director.loadScene('Lobby');
-            this.progress = 0
         }
     }
 }
