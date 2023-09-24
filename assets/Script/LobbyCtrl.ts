@@ -35,11 +35,12 @@ export default class LobbyCtrl extends cc.Component {
         // Thiết lập CanvasComponent để tự động điều chỉnh theo kích thước màn hình
         //canvasComponent.designResolution = cc.view.getFrameSize();
 
-        this.gold = Number(localStorage.getItem("gold"));
+        this.gold = Number(localStorage.getItem("goldCoin"));
         if (!this.goldCoin) {
             localStorage.setItem("goldCoin", "0");
-            this.gold = 1000;
+            this.gold = 0;
         }
+        this.goldCoin.string = this.gold.toString();
     }
 
     private onClickPlayGame(){

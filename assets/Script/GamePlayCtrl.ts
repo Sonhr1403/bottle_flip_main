@@ -16,7 +16,7 @@ export default class GamePlayCtrl extends cc.Component {
   public static instance = null;
   @property(cc.Node)
   private pause: cc.Node = null;
-  
+
   @property(cc.Node)
   private setting: cc.Node = null;
 
@@ -49,7 +49,11 @@ export default class GamePlayCtrl extends cc.Component {
 
   @property(cc.Node)
   private canvas: cc.Node = null;
-  // LIFE-CYCLE CALLBACKS:
+
+  @property(cc.Label)
+  private goldCoin: cc.Label = null;
+
+  private gold: number = -1;
 
   private startClickPos: cc.Vec2 = null;
   private endPos: cc.Vec2 = null;
@@ -164,7 +168,7 @@ export default class GamePlayCtrl extends cc.Component {
   }
 
   private setJumpDistance(dis: number) {
-    console.log("is filiped", this.isfliped)
+    console.log("is filiped", this.isfliped);
     if (this.isfliped === 0) {
       if (dis <= 300) {
         this.jumpDistance = cc.v3(-202 + 213, this.bottle.y + 300, 0);
@@ -261,7 +265,6 @@ export default class GamePlayCtrl extends cc.Component {
       " + perfect land: ",
       this.perfectLand
     );
-
   }
 
   private up() {
@@ -324,13 +327,15 @@ export default class GamePlayCtrl extends cc.Component {
     let x = this.isfliped == 0 ? 225 : -202;
     let pos = cc.v2(
       x,
-      this.objControl.objectNode[this.isfliped].y + this.objControl.objectNode[this.isfliped].height + extra
-    )
+      this.objControl.objectNode[this.isfliped].y +
+        this.objControl.objectNode[this.isfliped].height +
+        extra
+    );
     this.bottleTemp.setPosition(pos);
     this.bottleOriginPos = this.bottle.getPosition();
   }
 
-  private getExtra(){
+  private getExtra() {
     let obj = this.objControl.iArray[this.isfliped];
     let extra = 0;
     switch (obj) {
@@ -350,7 +355,7 @@ export default class GamePlayCtrl extends cc.Component {
         extra = 0;
         break;
     }
-    return extra
+    return extra;
   }
 
   public showStar() {
@@ -373,7 +378,7 @@ export default class GamePlayCtrl extends cc.Component {
         }, 0.2);
         this.scheduleOnce(() => {
           this.activeStar(2, this.starArrayPos[4]);
-        }, 0.4);      
+        }, 0.4);
         break;
 
       default:
@@ -384,11 +389,11 @@ export default class GamePlayCtrl extends cc.Component {
   private updateBar() {
     this.scoreLoad.fillRange += 0.1;
     this.scoreLoad.fillRange = Number(this.scoreLoad.fillRange.toFixed(1));
-    if(this.scoreLoad.fillRange == 1){
-      this.scoreLoad.fillRange = 0
+    if (this.scoreLoad.fillRange == 1) {
+      this.scoreLoad.fillRange = 0;
       if (this.lives < 3) {
         this.settingCtrl.playType(6);
-        this.lives +=1;
+        this.lives += 1;
         this.updateLives();
       }
     }
@@ -406,12 +411,12 @@ export default class GamePlayCtrl extends cc.Component {
         cc.spawn(cc.moveTo(0.5, pos), cc.scaleTo(0.5, 2)),
         cc.delayTime(0.5),
         cc.spawn(cc.moveTo(0.2, cc.v2(-130, 460)), cc.scaleTo(0.2, 0.25)),
-        cc.fadeOut(0.2),
+        cc.fadeOut(0.2)
       )
     );
-    this.scheduleOnce(()=>{
+    this.scheduleOnce(() => {
       this.updateBar();
-    }, 1.6)
+    }, 1.6);
   }
 
   public addScore() {
@@ -426,10 +431,11 @@ export default class GamePlayCtrl extends cc.Component {
     this.resetLives();
     this.resetScore();
     this.inactiveAllPopup();
+    this.getGold();
     this.turnOn();
   }
 
-  private resetBottle(){
+  private resetBottle() {
     this.bottle.setPosition(cc.v2(-202, -144));
     this.bottle.angle = 0;
     this.bottleOriginPos = this.bottle.getPosition();
@@ -437,17 +443,17 @@ export default class GamePlayCtrl extends cc.Component {
     this.bottleTemp.setPosition(225, -144);
   }
 
-  private resetLives(){
+  private resetLives() {
     this.lives = 3;
     this.updateLives();
   }
 
-  private resetScore(){
+  private resetScore() {
     this.lblScore.string = "0";
-    this.scoreLoad.fillRange = 0
+    this.scoreLoad.fillRange = 0;
   }
 
-  private inactiveAllPopup(){
+  private inactiveAllPopup() {
     this.setting.active = false;
     this.pause.active = false;
     this.endGame.active = false;
@@ -465,9 +471,20 @@ export default class GamePlayCtrl extends cc.Component {
   private togglePause() {
     this.pause.active = !this.pause.active;
   }
- 
-  private backtolobby(){
+
+  private backtolobby() {
     this.settingCtrl.stopAll();
-    cc.director.loadScene('Lobby');
-}
+    cc.director.loadScene("Lobby");
+  }
+
+  private getGold(){
+    this.gold = Number(localStorage.getItem("goldCoin"));
+    this.goldCoin.string = this.gold.toString();
+  }
+
+  public addGold(){
+    this.gold = Number(localStorage.getItem("goldCoin"));
+    this.gold += Number(this.lblScore.string);
+    localStorage.setItem("goldCoin", this.gold.toString());
+  }
 }

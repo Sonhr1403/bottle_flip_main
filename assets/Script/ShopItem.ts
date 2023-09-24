@@ -5,7 +5,7 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/2.4/manual/en/scripting/life-cycle-callbacks.html
 
-import { itemShop } from "./Shop";
+import Shop, { itemShop } from "./Shop";
 
 const {ccclass, property} = cc._decorator;
 
@@ -29,6 +29,12 @@ export default class ShopItem extends cc.Component {
 
     @property(cc.SpriteFrame)
     private sfBtn: cc.SpriteFrame[] = [];
+
+    @property(cc.SpriteFrame)
+    private sfTable: cc.SpriteFrame[] = [];
+
+    @property(cc.SpriteFrame)
+    private sfBackGround: cc.SpriteFrame[] = [];
 
     private item: itemShop = null;
     // LIFE-CYCLE CALLBACKS:
@@ -56,6 +62,16 @@ export default class ShopItem extends cc.Component {
     }
 
     private onClick(){
-        
+        if(!this.item.isBought){
+            Shop.instance.popUp.active = true;
+            Shop.instance.ribbonLbl.string = "Do you want to buy this item?";
+            Shop.instance.currentItem = this.item;
+        } else {
+            if (!this.item.isUsing) {
+                Shop.instance.popUp.active = true;
+                Shop.instance.ribbonLbl.string = "Do you want to use this item?";
+                Shop.instance.currentItem = this.item;
+            }
+        }
     }
 }
