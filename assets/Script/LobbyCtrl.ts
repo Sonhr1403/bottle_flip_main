@@ -37,8 +37,8 @@ export default class LobbyCtrl extends cc.Component {
 
         this.gold = Number(localStorage.getItem("goldCoin"));
         if (!this.goldCoin) {
-            localStorage.setItem("goldCoin", "0");
-            this.gold = 0;
+            localStorage.setItem("goldCoin", "10");
+            this.gold = 10;
         }
         this.goldCoin.string = this.gold.toString();
     }

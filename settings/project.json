@@ -13,13 +13,20 @@
       true,
       false,
       false
+    ],
+    [
+      false,
+      false,
+      false,
+      false
     ]
   ],
   "excluded-modules": [],
   "group-list": [
     "bottle",
     "table",
-    "objects"
+    "objects",
+    "default"
   ],
   "start-scene": "74411d84-3e80-4db9-9f6d-d865e93fa55b",
   "design-resolution-width": 1920,

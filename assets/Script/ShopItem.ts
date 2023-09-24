@@ -25,23 +25,26 @@ export default class ShopItem extends cc.Component {
     private coin: cc.SpriteFrame = null;
 
     @property(cc.SpriteFrame)
-    private sfBottle: cc.SpriteFrame[] = [];
+    private sfItem: cc.SpriteFrame[] = [];
 
     @property(cc.SpriteFrame)
     private sfBtn: cc.SpriteFrame[] = [];
-
-    @property(cc.SpriteFrame)
-    private sfTable: cc.SpriteFrame[] = [];
-
-    @property(cc.SpriteFrame)
-    private sfBackGround: cc.SpriteFrame[] = [];
 
     private item: itemShop = null;
     // LIFE-CYCLE CALLBACKS:
 
     public initItem(item: itemShop){
         this.item = item;
-        this.bottle.spriteFrame = this.sfBottle[item.id];
+        this.bottle.spriteFrame = this.sfItem[item.id];
+        this.bottle.node.width = this.sfItem[item.id].getOriginalSize().width;
+        this.bottle.node.height = this.sfItem[item.id].getOriginalSize().height;
+        if(item.id < 6){
+            this.bottle.node.scale = 1;
+        } else if (item.id >= 6 && item.id < 8) {
+            this.bottle.node.scale = 0.15;          
+        } else {
+            this.bottle.node.scale = 0.1;
+        }
         if (item.isBought) {
             if (item.isUsing) {
                 this.btn.getComponent(cc.Sprite).spriteFrame = this.sfBtn[1];
