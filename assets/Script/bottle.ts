@@ -62,15 +62,15 @@ export default class Bottle extends cc.Component {
                     .tween()
                     .by(0.5, { angle: this.getRandomNumberInRange(60, 210) })
                 )
-                .call(()=>{
-                    GamePlayCtrl.instance.settingCtrl.playType(4);
+                .call(() => {
+                  GamePlayCtrl.instance.settingCtrl.playType(4);
                 });
 
               this.scheduleOnce(() => {
                 this.tween.start();
                 this.scheduleOnce(() => {
-                    GamePlayCtrl.instance.lives -= 1;
-                    GamePlayCtrl.instance.settingCtrl.playType(7);
+                  GamePlayCtrl.instance.lives -= 1;
+                  GamePlayCtrl.instance.settingCtrl.playType(7);
                   if (GamePlayCtrl.instance.lives > 0) {
                     GamePlayCtrl.instance.updateLives();
                     this.reset();
@@ -79,6 +79,7 @@ export default class Bottle extends cc.Component {
                       GamePlayCtrl.instance.settingCtrl.playType(8);
                       GamePlayCtrl.instance.endGame.active = true;
                       GamePlayCtrl.instance.addGold();
+                      GamePlayCtrl.instance.addRank();
                     }, 0.5);
                   }
                 }, 1);

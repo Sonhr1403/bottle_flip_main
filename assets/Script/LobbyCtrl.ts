@@ -5,6 +5,7 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
+import Rank, { itemRank } from "./Rank";
 import Shop from "./Shop";
 
 const {ccclass, property} = cc._decorator;
@@ -27,6 +28,7 @@ export default class LobbyCtrl extends cc.Component {
     private goldCoin: cc.Label = null;
 
     public gold: number = -1;
+
     // LIFE-CYCLE CALLBACKS:
 
     protected onLoad () {
@@ -44,6 +46,12 @@ export default class LobbyCtrl extends cc.Component {
             this.gold = 10;
         }
         this.goldCoin.string = this.gold.toString();
+
+        let listRank = JSON.parse(localStorage.getItem("listRank"));
+        if (!listRank) {
+          localStorage.setItem("listRank", JSON.stringify([]));
+          listRank = [];
+        }
     }
 
     private onClickPlayGame(){
@@ -57,6 +65,7 @@ export default class LobbyCtrl extends cc.Component {
 
     private onClickRank(){
         this.rank.active = !this.rank.active;
+        this.rank.getComponent(Rank).initRankItem();
     }
 
     private onClickGuide(){

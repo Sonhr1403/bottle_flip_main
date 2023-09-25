@@ -6,6 +6,7 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
 import Objects from "./Objects";
+import { itemRank } from "./Rank";
 import SettingCtrl from "./SettingCtrl";
 import Shop, { itemShop } from "./Shop";
 import Bottle from "./bottle";
@@ -98,24 +99,25 @@ export default class GamePlayCtrl extends cc.Component {
     this.settingCtrl.playType(0);
   }
 
-  private setSkin(){
+  private setSkin() {
     let listItem: itemShop[] = JSON.parse(localStorage.getItem("listItem"));
     for (let i = 0; i < listItem.length; i++) {
       if (listItem[i].isUsing) {
         switch (listItem[i].type) {
           case "bottle":
             this.bottle.getComponent(cc.Sprite).spriteFrame = this.sfItem[i];
-            this.bottleTemp.getComponent(cc.Sprite).spriteFrame = this.sfItem[i];
+            this.bottleTemp.getComponent(cc.Sprite).spriteFrame =
+              this.sfItem[i];
             break;
-        
+
           case "table":
             this.table.getComponent(cc.Sprite).spriteFrame = this.sfItem[i];
             break;
-        
+
           case "bg":
-            this.backGround.getComponent(cc.Sprite).spriteFrame = this.sfItem[i];
+            this.backGround.getComponent(cc.Sprite).spriteFrame =
+              this.sfItem[i];
             break;
-        
         }
       }
     }
@@ -435,7 +437,8 @@ export default class GamePlayCtrl extends cc.Component {
 
   private activeStar(i: number, pos: cc.Vec2) {
     this.settingCtrl.playType(5);
-    this.starArrs[i].setPosition(this.bottle.getPosition());
+    let posStart = cc.v2(this.bottle.getPosition());
+    this.starArrs[i].setPosition(posStart.x, posStart.y - this.bottle.height/2 + 20);
     this.starArrs[i].scale = 0.25;
     // let pos2 = this.scoreLoad.node.convertToWorldSpaceAR(this.scoreLoad.node.getPosition());
     // let pos3 = this.starArrs[i].convertToNodeSpaceAR(pos2);
@@ -444,7 +447,7 @@ export default class GamePlayCtrl extends cc.Component {
         cc.fadeIn(0.2),
         cc.spawn(cc.moveTo(0.5, pos), cc.scaleTo(0.5, 2)),
         cc.delayTime(0.5),
-        cc.spawn(cc.moveTo(0.2, cc.v2(-130, 460)), cc.scaleTo(0.2, 0.25)),
+        cc.spawn(cc.moveTo(0.2, cc.v2(127, 460)), cc.scaleTo(0.2, 0.25)),
         cc.fadeOut(0.2)
       )
     );
@@ -511,14 +514,39 @@ export default class GamePlayCtrl extends cc.Component {
     cc.director.loadScene("Lobby");
   }
 
-  private getGold(){
+  private getGold() {
     this.gold = Number(localStorage.getItem("goldCoin"));
     this.goldCoin.string = this.gold.toString();
   }
 
-  public addGold(){
+  public addGold() {
     this.gold = Number(localStorage.getItem("goldCoin"));
+    console.log(this.gold);
     this.gold += Number(this.lblScore.string);
+    console.log(this.gold);
     localStorage.setItem("goldCoin", this.gold.toString());
+  }
+
+  public addRank() {
+    let itemRank: itemRank = { time: "0", score: "0" };
+    itemRank.score = this.lblScore.string;
+    itemRank.time = new Date().toLocaleString();
+
+    let listRank: itemRank[] = JSON.parse(localStorage.getItem("listRank"));
+    listRank.push(itemRank);
+
+    listRank.sort(function (item1, item2) {
+      return Number(item2.score) - Number(item1.score);
+    });
+
+    console.log(listRank);
+
+    if (listRank.length > 10) {
+      listRank.pop();
+    }
+
+    console.log(listRank);
+
+    localStorage.setItem("listRank", JSON.stringify(listRank));
   }
 }

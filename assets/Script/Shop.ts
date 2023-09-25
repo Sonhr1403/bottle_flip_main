@@ -5,7 +5,6 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/2.4/manual/en/scripting/life-cycle-callbacks.html
 
-import GamePlayCtrl from "./GamePlayCtrl";
 import LobbyCtrl from "./LobbyCtrl";
 import ShopItem from "./ShopItem";
 
@@ -62,6 +61,7 @@ export default class Shop extends cc.Component {
     protected onLoad(): void {
         Shop.instance = this;
     }
+    
     public updateItem(): void {
         this.listItem = JSON.parse(localStorage.getItem("listItem"));
         if (!this.listItem) {
